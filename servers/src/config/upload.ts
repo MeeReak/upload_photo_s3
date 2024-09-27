@@ -11,7 +11,7 @@ interface MulterFile extends Express.Multer.File {
 const upload = multer({
   storage: multerS3({
     s3: s3, // Using the new S3Client instance
-    bucket: process.env.AWS_S3_BUCKET_NAME || "", // Ensure bucket name is provided
+    bucket: process.env.AWS_S3_BUCKET_NAME || "archive-local-bucket", // Ensure bucket name is provided
     contentType: multerS3.AUTO_CONTENT_TYPE,
     key: function (
       req: Request,

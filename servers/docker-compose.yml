@@ -1,0 +1,18 @@
+services:
+    localstack:
+        image: localstack/localstack
+        container_name: localstackS3
+        ports:
+            - '4566:4566'
+        environment:
+            - SERVICES=s3
+            - DEBUG=1 # Display relevant logs.
+            - DATA_DIR=/tmp/localstack/data # Directory Localstack saves data internally.
+            - HOSTNAME_EXTERNAL=localstack
+            - AWS_BUCKET_NAME=local-bucket
+            - AWS_ACCESS_KEY_ID=foobar
+            - AWS_SECRET_ACCESS_KEY=foobar
+        volumes:
+            - ./init-localstack.sh:/docker-entrypoint-initaws.d/init-localstack.sh # Initialise the bucket.
+            - './.localstack:/var/lib/localstack'
+            - '/var/run/docker.sock:/var/run/docker.sock'
